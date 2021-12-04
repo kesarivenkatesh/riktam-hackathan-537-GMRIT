@@ -15,16 +15,15 @@ const RequestSchema = new Schema({
         unique: true,
         default: uuidv4(),
     },
-    time_created: {
-        type: Date,
-        default: Date.now,
-        required: true,
-    },
     // TODO: come here to Location API
     location: {
         type: String,
     },
-    stuff_type: {
+    request_name: {
+        type: String,
+        required: true,
+    },
+    request_description: {
         type: String,
         required: true,
     },
@@ -41,7 +40,7 @@ const RequestSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users',
     }
-}, { TimeStamps: true });
+}, { timestamps: true });
 
 
 module.exports = mongoose.model('requests', RequestSchema);

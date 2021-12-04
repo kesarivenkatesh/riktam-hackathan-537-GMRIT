@@ -73,6 +73,7 @@ router.post(
                             if (isMatch) {
                                 // User Matched
                                 const payload = {
+                                    id: user._id,
                                     email: user.email,
                                     role: user.role
                                 };

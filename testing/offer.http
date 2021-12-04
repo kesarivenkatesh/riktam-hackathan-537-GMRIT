@@ -1,0 +1,13 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWIxNWVhYTVlMjZkMDcxOGVlZmExYiIsImVtYWlsIjoiZGFtYXJlc2h3YXJha3VtYXJAZ21haWwuY29tIiwicm9sZSI6MCwiaWF0IjoxNjM4NjEzNjY3LCJleHAiOjE2Mzg2MTcyNjd9.YYD8laEFGXBD_gdngUmpubrV2iwyUZfaV1cMy5alUAE
+
+
+POST http://127.0.0.1:3333/api/offer HTTP/1.1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "offer_name": "Server",
+    "offer_description": "80TB Storage Server",
+    "karma_points_expected": 120,
+    "location": "GMRIT"
+}

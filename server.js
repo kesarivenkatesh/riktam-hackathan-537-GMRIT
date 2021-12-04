@@ -24,10 +24,14 @@ const PORT = process.env.PORT || 3333;
 // Routes
 app.get('/', (req, res) => {
     res.send(
-        `Routes liSt Comes here`
+        `/api/signup    :: user Signup <br>
+        /api/login     :: user Login <br>
+        `
     )
 });
 app.use('/api', require('./routes/auth'));
+app.use('/api/offer', require('./routes/offer'));
+app.use('/api/request', require('./routes/request'));
 
 
 

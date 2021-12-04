@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const { v4: uuidv4 } = require('uuid')
 
 const OfferSchema = new Schema({
     user_id: {
@@ -18,7 +18,11 @@ const OfferSchema = new Schema({
         type: String,
         required: true,
     },
-    karma_points: {
+    offer_description: {
+        type: String,
+    },
+
+    karma_points_expected: {
         type: Number,
         required: true,
     },
@@ -36,7 +40,7 @@ const OfferSchema = new Schema({
         ref: 'users',
     }]
     // TODO: Add feedback from the users
-}, { TimeStamps: true });
+}, { timestamps: true });
 
 
 module.exports = mongoose.model('offers', OfferSchema);

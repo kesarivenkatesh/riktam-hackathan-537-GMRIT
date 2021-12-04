@@ -1,0 +1,20 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWIxOWVmNmFjNzdhM2RiNGIyOTFiMiIsImVtYWlsIjoiYmFkYXJzaDIwMDFAZ21haWwuY29tIiwicm9sZSI6MCwiaWF0IjoxNjM4NjMzMjQ2LCJleHAiOjE2Mzg2MzY4NDZ9.mI4TTAusvYO6Y2EQkaHJT3IBMRb1UZEQGRrA00tTEKA
+
+
+
+# # Creating a request
+# POST http://127.0.0.1:3333/api/request HTTP/1.1
+# Content-Type: application/json
+# Authorization: {{token}}
+
+# {
+#     "location": "Eluru",
+#     "request_name": "inverter",
+#     "request_description": "Amaron",
+#     "karma_points": 99
+# }
+
+
+# Accepting a request
+GET http://127.0.0.1:3333/api/request/61ab51d2f36b30423ce40e38 HTTP/1.1
+Authorization: {{token}}
