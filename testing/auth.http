@@ -1,0 +1,24 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbWFyZXNod2FyYWt1bWFyQGdtYWlsLmNvbSIsInJvbGUiOjAsImlhdCI6MTYzODYwMzA1MywiZXhwIjoxNjM4NjA2NjUzfQ.1zxp3OMh4EDX8RLmCeqIsbvuIaXFX43eKTMX464Aut4
+
+# # User Signup
+# POST http://127.0.0.1:3333/api/signup HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "firstname": "Dhamareshwarakumar",
+#     "lastname": "Gandikota",
+#     "email": "damareshwarakumar@gmail.com",
+#     "contact_number": "7661979943",
+#     "password": "12345678",
+#     "password2": "12345678"
+# }
+
+
+# User login
+POST http://127.0.0.1:3333/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "damareshwarakumar@gmail.com",
+    "password": "12345678"
+}

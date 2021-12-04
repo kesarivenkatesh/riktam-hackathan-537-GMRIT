@@ -25,7 +25,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         minlength: 8,
-        maxlength: 32,
+        maxlength: 256,
         trim: true,
     },
     contact_number: {
@@ -38,6 +38,11 @@ const UserSchema = new Schema({
     karma_points: {
         type: Number,
         default: 0,
+    },
+    role: {
+        type: Number,
+        default: 0,
+        required: true,
     }
 }, { TimeStamps: true });
 

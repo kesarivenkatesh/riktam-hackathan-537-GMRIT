@@ -1,17 +1,20 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const passport = require('passport');
 
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));       // BodyParser
 app.use(express.json());                                // BodyParser
 app.use(cors());                                        // CORS
+app.use(passport.initialize());                         // Passport
 
 
 // Configuration
 require('dotenv').config()                    // Setting up Environment Variables
 require('./config/db');                       // Database (MongoDB Atlas)
+require('./config/passport')(passport);       // Passport (JWT)
 
 
 // Constants
@@ -24,6 +27,7 @@ app.get('/', (req, res) => {
         `Routes liSt Comes here`
     )
 });
+app.use('/api', require('./routes/auth'));
 
 
 
