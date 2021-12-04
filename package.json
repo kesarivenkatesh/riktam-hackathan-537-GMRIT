@@ -1,0 +1,26 @@
+{
+  "name": "riktam-hackathan-537-gmrit",
+  "version": "1.0.0",
+  "description": "Riktam Hackathon Submission",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dhamareshwarakumar/riktam-hackathan-537-GMRIT.git"
+  },
+  "keywords": [
+    "Riktam",
+    "Hackathon",
+    "Node",
+    "React",
+    "Borrow"
+  ],
+  "author": "Dhamareshwarakumar Gandikota",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dhamareshwarakumar/riktam-hackathan-537-GMRIT/issues"
+  },
+  "homepage": "https://github.com/Dhamareshwarakumar/riktam-hackathan-537-GMRIT#readme"
+}
