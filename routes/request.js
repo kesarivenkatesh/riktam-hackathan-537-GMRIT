@@ -18,8 +18,9 @@ const Offer = require('../models/offer');
 router.get(
     '/',
     (req, res) => {
-        Request.find({ status: 'pending' })
+        Request.find({})
             .sort({ createdAt: -1 })
+            .populate('user_id', ['firstname', 'email'])
             .then(requests => res.json(requests))
             .catch(err => res.status(404).json({ noRequestsFound: 'No requests found' }));
     }
@@ -60,7 +61,7 @@ router.get(
                                                         Offer.findOne({ $and: [{ user_id: accepted_user_id }, { offer_name: request.request_name }] })
                                                             .then(offer => {
                                                                 console.log(offer);
-                                                                if (offer.length !== 0) {
+                                                                if (offer) {
                                                                     offer.status = 'booked';
                                                                     offer.save()
                                                                         .then(offer => res.json({
@@ -79,6 +80,7 @@ router.get(
                                                                         offer_description: request.request_description,
                                                                         karma_points_expected: request.karma_points,
                                                                         location: accepted_user.location,
+                                                                        status: 'booked'
                                                                     })
                                                                     offer.save()
                                                                         .then(offer => res.json({
@@ -128,11 +130,10 @@ router.post(
     passport.authenticate('jwt', { session: false }),
     validateRequest,
     (req, res) => {
-
         // Checking Availabale Karma points
-        User.find({ email: req.user.email })
+        User.findOne({ email: req.user.email })
             .then(user => {
-                if (user[0].karma_points < req.body.karma_points) {
+                if (user.karma_points < req.body.karma_points) {
                     return res.status(400).json({ err: 'Not enough Karma points' });
                 }
 
@@ -143,13 +144,36 @@ router.post(
                     request_description: req.body.request_description,
                     karma_points: req.body.karma_points
                 });
-
+                console.log(request);
                 request.save()
                     .then(request => res.json({ msg: "Request Created", request }))
-                    .catch(err => res.status(400).json({ err: "Request not created" }));
+                    .catch(err => res.status(400).json({ err: err + "Request not created" }));
             })
             .catch(err => res.status(404).json({ noUserFound: 'No user found' }));
     }
 );
+
+
+// @route   DELETE api/request/:id
+// @desc    Delete a request
+// @access  Private
+router.delete(
+    '/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        Request.findById(req.params.id)
+            .then(request => {
+                if (request.user_id.toString() !== req.user.id) {
+                    return res.status(401).json({ notAuthorized: 'User not authorized' });
+                }
+                request.remove()
+                    .then(() => res.json({ success: true }))
+                    .catch(err => res.status(404).json({ err: 'Request not found' }));
+            })
+            .catch(err => res.status(404).json({ err: 'Request not found' }));
+    }
+);
+
+
 
 module.exports = router;

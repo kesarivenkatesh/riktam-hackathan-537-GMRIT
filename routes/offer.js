@@ -14,11 +14,12 @@ const Offer = require('../models/offer');
 
 // @route  GET api/offer
 // @desc   Get all offers
-// @access Public
+// @access Private
 router.get(
     '/',
+    passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Offer.find()
+        Offer.find({ user_id: req.user.id })
             .sort({ updatedAt: -1 })
             .then(offers => res.json(offers))
             .catch(err => res.status(404).json({ err: 'No offers found' }));
@@ -47,6 +48,27 @@ router.post(
         offer.save()
             .then(offer => res.json({ msg: "Offer Created Successfully", offer }))
             .catch(err => res.json({ err: err + "Offer not created" }))
+    }
+)
+
+
+// @route   DELETE api/offer/:id
+// @desc    Delete Offer
+// @access  Private
+router.delete(
+    '/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        Offer.findById(req.params.id)
+            .then(offer => {
+                if (offer.user_id.toString() !== req.user.id) {
+                    return res.status(401).json({ err: 'User not authorized' });
+                }
+                offer.remove()
+                    .then(() => res.json({ msg: 'Offer Deleted' }))
+                    .catch(err => res.status(404).json({ err: 'Offer not found' }));
+            })
+            .catch(err => res.status(404).json({ err: 'Offer not found' }));
     }
 )
 

@@ -15,6 +15,8 @@ import Navbar from './components/layout/Navbar';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Offer from './components/Offer';
+import Request from './components/Request';
 
 
 // check for token
@@ -42,6 +44,12 @@ function App() {
             </Route>
             <Route exact path="/signup">
               <Signup />
+            </Route>
+            <Route exact path="/offers">
+              <Offer />
+            </Route>
+            <Route exact path="/requests">
+              <Request />
             </Route>
           </Switch>
         </div>

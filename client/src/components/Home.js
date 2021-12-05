@@ -37,7 +37,7 @@ const Home = props => {
         // Send Request & set Feed
         axios.get('/api/request')
             .then(res => {
-                setFeed(res.data)
+                setFeed(res.data.filter(request => request.status === 'pending'));
             })
             .catch(err => console.error(err));
     }, [props.auth.isAuthenticated]);
@@ -169,7 +169,7 @@ const Home = props => {
                     </div>
                 </div>
                 <div className="col-12 col-md-5 border border-primary">
-                    <h1>Welcome to the <span className="text-primary">React</span> <span className="text-danger">Todo</span> App</h1>
+                    <h1>Welcome <span className="text-danger">{props.auth.user.firstname}</span></h1>
                 </div>
                 <div className="col-md-1"></div>
             </div>

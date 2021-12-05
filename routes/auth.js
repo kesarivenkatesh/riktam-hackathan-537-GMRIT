@@ -75,7 +75,10 @@ router.post(
                                 const payload = {
                                     id: user._id,
                                     email: user.email,
-                                    role: user.role
+                                    role: user.role,
+                                    karma_points: user.karma_points,
+                                    firstname: user.firstname,
+                                    lastname: user.lastname
                                 };
                                 // Sign Token
                                 jwt.sign(
@@ -91,12 +94,27 @@ router.post(
                                     }
                                 );
                             } else {
-                                return res.status(400).json({ err: 'Password incorrect' });
+                                return res.status(400).json({ password: 'Password incorrect' });
                             }
                         })
                 } else {
-                    return res.status(400).json({ err: 'User does not exist' });
+                    return res.status(400).json({ email: 'User does not exist' });
                 }
+            })
+    }
+)
+
+
+// @route   :: GET /api/current
+// @desc    :: Return current user
+// @access  :: Private
+router.get(
+    '/current',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        User.findOne({ email: req.user.email })
+            .then(user => {
+                return res.json(user);
             })
     }
 )

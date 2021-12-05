@@ -1,4 +1,4 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWIxOWVmNmFjNzdhM2RiNGIyOTFiMiIsImVtYWlsIjoiYmFkYXJzaDIwMDFAZ21haWwuY29tIiwicm9sZSI6MCwiaWF0IjoxNjM4NjMzMjQ2LCJleHAiOjE2Mzg2MzY4NDZ9.mI4TTAusvYO6Y2EQkaHJT3IBMRb1UZEQGRrA00tTEKA
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWM1MzczN2VlNmEzMmYyMDM3NTZmYyIsImVtYWlsIjoiYmFkYXJzaDIwMDFAZ21haWwuY29tIiwicm9sZSI6MCwia2FybWFfcG9pbnRzIjoxNzUsImZpcnN0bmFtZSI6IkFkYXJzaCIsImxhc3RuYW1lIjoiQmFkYWdhbGEiLCJpYXQiOjE2Mzg2OTIzOTEsImV4cCI6MTYzODY5NTk5MX0.cKdmmEV5bWO0Tpf-LVOJT79HuqjG6VDxNNqVanimAOU
 
 
 
@@ -15,6 +15,6 @@
 # }
 
 
-# Accepting a request
-GET http://127.0.0.1:3333/api/request/61ab51d2f36b30423ce40e38 HTTP/1.1
-Authorization: {{token}}
+# # Accepting a request
+# GET http://127.0.0.1:3333/api/request/61ab51d2f36b30423ce40e38 HTTP/1.1
+# Authorization: {{token}}

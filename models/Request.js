@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { v4: uuidv4 } = require('uuid');
+
 
 
 const RequestSchema = new Schema({
@@ -8,12 +8,6 @@ const RequestSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users',
         required: true
-    },
-    request_id: {
-        type: String,
-        required: true,
-        unique: true,
-        default: uuidv4(),
     },
     // TODO: come here to Location API
     location: {

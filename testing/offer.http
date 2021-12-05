@@ -1,13 +1,19 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWIxNWVhYTVlMjZkMDcxOGVlZmExYiIsImVtYWlsIjoiZGFtYXJlc2h3YXJha3VtYXJAZ21haWwuY29tIiwicm9sZSI6MCwiaWF0IjoxNjM4NjEzNjY3LCJleHAiOjE2Mzg2MTcyNjd9.YYD8laEFGXBD_gdngUmpubrV2iwyUZfaV1cMy5alUAE
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWM0YWFlZDFiY2IyNGNlMGYwYzZmYyIsImVtYWlsIjoiZGFtYXJlc2h3YXJha3VtYXJAZ21haWwuY29tIiwicm9sZSI6MCwia2FybWFfcG9pbnRzIjoxMjUsImZpcnN0bmFtZSI6IkRoYW1hcmVzaHdhcmFrdW1hciIsImxhc3RuYW1lIjoiR2FuZGlrb3RhIiwiaWF0IjoxNjM4NjkxODk2LCJleHAiOjE2Mzg2OTU0OTZ9.8JwJfzAMu5b999OPBQcqNFCGinMh3EIQEk1vG_S-zFE
 
 
-POST http://127.0.0.1:3333/api/offer HTTP/1.1
-Content-Type: application/json
+# # Create an offer
+# POST http://127.0.0.1:3333/api/offer HTTP/1.1
+# Content-Type: application/json
+# Authorization: {{token}}
+
+# {
+#     "offer_name": "Server",
+#     "offer_description": "80TB Storage Server",
+#     "karma_points_expected": 120,
+#     "location": "GMRIT"
+# }
+
+
+# GET My offers
+GET http://127.0.0.1:3333/api/offer HTTP/1.1
 Authorization: {{token}}
-
-{
-    "offer_name": "Server",
-    "offer_description": "80TB Storage Server",
-    "karma_points_expected": 120,
-    "location": "GMRIT"
-}
