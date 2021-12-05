@@ -12,6 +12,7 @@ const User = require('../models/User');
 const Offer = require('../models/offer');
 
 
+
 // @route   GET api/request
 // @desc    Get all requests
 // @access  Public
@@ -55,14 +56,16 @@ router.get(
                                         User.findById(new mongoose.Types.ObjectId(request.user_id))
                                             .then(requested_user => {
                                                 requested_user.karma_points -= request.karma_points;
+                                                // TODO: Check if it is going less than 0
                                                 requested_user.save()
                                                     .then(requested_user => {
                                                         // Check if accepted user having offer else create offer
                                                         Offer.findOne({ $and: [{ user_id: accepted_user_id }, { offer_name: request.request_name }] })
                                                             .then(offer => {
-                                                                console.log(offer);
                                                                 if (offer) {
                                                                     offer.status = 'booked';
+                                                                    offer.accepted_user_id = requested_user._id;
+                                                                    offer.accepted_request_id = request_id;
                                                                     offer.save()
                                                                         .then(offer => res.json({
                                                                             request,
@@ -80,7 +83,9 @@ router.get(
                                                                         offer_description: request.request_description,
                                                                         karma_points_expected: request.karma_points,
                                                                         location: accepted_user.location,
-                                                                        status: 'booked'
+                                                                        status: 'booked',
+                                                                        accepted_user_id: requested_user._id,
+                                                                        accepted_request_id: request_id
                                                                     })
                                                                     offer.save()
                                                                         .then(offer => res.json({
@@ -122,6 +127,44 @@ router.get(
     }
 );
 
+
+// @route   GET api/request/close/:request_id
+// @desc    Close pending request
+// @access  Private
+router.get(
+    '/close/:id',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        Offer.findById(req.params.id)
+            .then(offer => {
+                offer.status = 'closed';
+                offer.save()
+                    .then(offer => {
+                        Request.findById(offer.accepted_request_id)
+                            .then(request => {
+                                request.status = 'closed'
+                                request.save()
+                                    .then(request => {
+                                        return res.json({
+                                            offer,
+                                            request
+                                        })
+                                    })
+                                    .catch(err => {
+                                        throw err;
+                                    });
+                            })
+                            .catch(err => {
+                                throw err;
+                            });
+                    })
+                    .catch(err => {
+                        throw err;
+                    });
+            })
+    });
+
+
 // @route   POST api/request/
 // @desc    Create a new request
 // @access  Private
@@ -134,25 +177,28 @@ router.post(
         User.findOne({ email: req.user.email })
             .then(user => {
                 if (user.karma_points < req.body.karma_points) {
-                    return res.status(400).json({ err: 'Not enough Karma points' });
+                    return res.status(400).json({ karma_points: 'Not enough Karma points' });
                 }
 
-                let request = new Request({
-                    user_id: new mongoose.Types.ObjectId(req.user.id),
-                    location: req.body.location,
-                    request_name: req.body.request_name,
-                    request_description: req.body.request_description,
-                    karma_points: req.body.karma_points
-                });
-                console.log(request);
-                request.save()
-                    .then(request => res.json({ msg: "Request Created", request }))
-                    .catch(err => res.status(400).json({ err: err + "Request not created" }));
-            })
-            .catch(err => res.status(404).json({ noUserFound: 'No user found' }));
-    }
-);
-
+                Request.findOne({ request_name: req.body.request_name })
+                    .then(request => {
+                        if (request) {
+                            return res.status(400).json({ request_name: 'Request already exists' });
+                        }
+                        let newRequest = new Request({
+                            user_id: new mongoose.Types.ObjectId(req.user.id),
+                            location: req.body.location,
+                            request_name: req.body.request_name,
+                            request_description: req.body.request_description,
+                            karma_points: req.body.karma_points
+                        });
+                        newRequest.save()
+                            .then(request => res.json({ msg: "Request Created", request }))
+                            .catch(err => res.status(400).json({ err: "Request not created" }));
+                    })
+                    .catch(err => res.status(404).json({ noUserFound: 'No user found' }));
+            });
+    });
 
 // @route   DELETE api/request/:id
 // @desc    Delete a request

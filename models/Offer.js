@@ -1,18 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { v4: uuidv4 } = require('uuid')
+
 
 const OfferSchema = new Schema({
     user_id: {
         type: Schema.Types.ObjectId,
         ref: 'users',
         required: true,
-    },
-    offer_id: {
-        type: String,
-        required: true,
-        unique: true,
-        default: uuidv4(),
     },
     offer_name: {
         type: String,
@@ -38,7 +32,15 @@ const OfferSchema = new Schema({
     user_requests: [{
         type: Schema.Types.ObjectId,
         ref: 'users',
-    }]
+    }],
+    accepted_user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    accepted_request_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'requests'
+    },
     // TODO: Add feedback from the users
 }, { timestamps: true });
 

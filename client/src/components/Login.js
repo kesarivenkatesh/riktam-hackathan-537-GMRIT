@@ -44,7 +44,7 @@ const Login = props => {
                 <div className="row adminlogin_landing">
                     <div className="card adminlogin_landing_card">
                         <h3 className="text-center display-4" style={{ margin: "15px" }}>
-                            Student <span className="text-primary">Login</span>
+                            User <span className="text-info">Login</span>
                         </h3>
                         <div className="container ">
                             <div className="row align-items-center justify-content-center adminlogin_landing_card_main">

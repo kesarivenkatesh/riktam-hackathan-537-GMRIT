@@ -17,6 +17,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Offer from './components/Offer';
 import Request from './components/Request';
+import Pending from './components/Pending';
 
 
 // check for token
@@ -50,6 +51,9 @@ function App() {
             </Route>
             <Route exact path="/requests">
               <Request />
+            </Route>
+            <Route exact path="/pending">
+              <Pending />
             </Route>
           </Switch>
         </div>

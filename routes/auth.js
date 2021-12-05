@@ -18,6 +18,8 @@ const { signupValidation, loginValidation } = require('../validations/auth');
 // @route   :: POST /api/signup
 // @desc    :: Register a new user
 // @access  :: Public
+// TODO: Add email verification
+// TODO: Add OAuth
 router.post(
     '/signup',
     signupValidation,
@@ -26,7 +28,7 @@ router.post(
         User.findOne({ email: req.body.email })
             .then(user => {
                 if (user) {
-                    return res.status(400).json({ err: 'User already exists' });
+                    return res.status(400).json({ email: 'User already exists' });
                 } else {
                     // Create new user
                     const newUser = new User({
@@ -38,6 +40,7 @@ router.post(
                         karma_points: 100,
                     });
 
+                    // TODO: Add Password Strength Check
                     // Hash password
                     bcrypt.genSalt(10, (err, salt) => {
                         if (err) throw err;

@@ -47,6 +47,7 @@ const Signup = () => {
                                 </div>
                                 <div className="col-12 col-md-6">
                                     <div className="form-group mt-3">
+                                        {/* TODO: Create Input Components for easy access */}
                                         <input
                                             type="text"
                                             name="firstname"

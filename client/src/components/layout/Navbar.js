@@ -14,7 +14,7 @@ const Navbar = props => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Friendly Neighbourhood</Link>
+                <Link className="navbar-brand" to="/">Friendly <span className="text-danger">Neighbourhood</span></Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -40,10 +40,10 @@ const Navbar = props => {
                                     <Link className="nav-link" to="/offers">My Offerings</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/pending">Pending</Link>
+                                    <Link className="nav-link" to="/requests">My Requests</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/requests">Item Requests</Link>
+                                    <Link className="nav-link" to="/pending">Pending</Link>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <Link
