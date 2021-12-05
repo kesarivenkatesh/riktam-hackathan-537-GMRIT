@@ -1,0 +1,8 @@
+.feed {
+    height: 90vh;
+}
+
+.feed_main {
+    height: 82vh;
+    overflow-y: scroll;
+}
